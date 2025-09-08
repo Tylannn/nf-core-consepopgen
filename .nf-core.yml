@@ -1,0 +1,18 @@
+repository_type: pipeline
+
+nf_core_version: 3.3.1
+
+lint: {}
+
+template:
+  org: nf-core
+  name: consepopgen
+  description: A standardized and reproducible workflow for conservation and population
+    genetics analysis.
+  author: Tylannn
+  version: 1.0.0dev
+  force: true
+  outdir: .
+  skip_features:
+    - fastqc
+  is_nfcore: true
