@@ -1,0 +1,62 @@
+nextflow_process {
+
+    name "Test Process PIXY"
+    script "../main.nf"
+    process "PIXY"
+
+    tag "modules"
+    tag "modules_local"
+    tag "pixy"
+
+    config "./nextflow.config"
+
+    test("ag1000 - vcf") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'ag1000_test' ], // meta map
+                    file('https://github.com/ksamuk/pixy/raw/refs/heads/master/tests/main/data/ag1000_pixy_test.vcf.gz', checkIfExists: true),
+                    file('https://github.com/ksamuk/pixy/raw/refs/heads/master/tests/main/data/ag1000_pixy_test.vcf.gz.csi', checkIfExists: true)
+                ]
+                input[1] = file('https://github.com/ksamuk/pixy/raw/refs/heads/master/tests/main/data/ag1000_populations_file.txt', checkIfExists: true)
+                input[2] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+
+    test("ag1000 - vcf - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id:'ag1000_test' ], // meta map
+                    file('https://github.com/ksamuk/pixy/raw/refs/heads/master/tests/main/data/ag1000_pixy_test.vcf.gz', checkIfExists: true),
+                    file('https://github.com/ksamuk/pixy/raw/refs/heads/master/tests/main/data/ag1000_pixy_test.vcf.gz.csi', checkIfExists: true)
+                ]
+                input[1] = file('https://github.com/ksamuk/pixy/raw/refs/heads/master/tests/main/data/ag1000_populations_file.txt', checkIfExists: true)
+                input[2] = []
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+}

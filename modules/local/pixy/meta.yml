@@ -1,0 +1,72 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
+name: "pixy"
+description: Population genetic statistics (π, dxy, and FST) from VCF files
+keywords:
+  - population genetics
+  - diversity
+  - differentiation
+  - vcf
+  - fst
+  - pi
+  - dxy
+tools:
+  - "pixy":
+      description: "Unbiased estimation of nucleotide diversity and divergence in the presence of missing data"
+      homepage: "https://pixy.readthedocs.io/"
+      documentation: "https://pixy.readthedocs.io/en/latest/"
+      tool_dev_url: "https://github.com/ksamuk/pixy"
+      doi: "10.1111/1755-0998.13326"
+      licence: ["MIT"]
+      identifier: biotools:pixy
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. `[ id:'sample1' ]`
+    - vcf:
+        type: file
+        description: Compressed VCF file containing variant calls
+        pattern: "*.{vcf.gz}"
+        ontologies:
+          - edam: "http://edamontology.org/format_3016" # VCF
+    - vcf_index:
+        type: file
+        description: Index of the compressed VCF file
+        pattern: "*.{tbi,csi}"
+        ontologies:
+          - edam: "http://edamontology.org/format_3616" # Tabix
+  - - populations_file:
+        type: file
+        description: Tab-separated file defining population assignments for samples
+        pattern: "*.{txt,tsv}"
+  - - bed_file:
+        type: file
+        description: BED file containing regions over which to calculate summary statistics
+        pattern: "*.{bed}"
+        ontologies:
+          - edam: "http://edamontology.org/format_3003" # BED
+
+output:
+  stats:
+    - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. `[ id:'sample1' ]`
+    - "*.txt":
+        type: file
+        description: Output files containing population genetic statistics (pi, dxy, fst)
+        pattern: "*.txt"
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+
+authors:
+  - "@Tylannn"
+maintainers:
+  - "@Tylannn"

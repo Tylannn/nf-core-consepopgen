@@ -1,0 +1,84 @@
+{
+    "ag1000 - vcf - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "ag1000_test"
+                        },
+                        [
+                            "dxy.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "fst.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "pi.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,dd5c538efa0f437ef52f414b4885885d"
+                ],
+                "stats": [
+                    [
+                        {
+                            "id": "ag1000_test"
+                        },
+                        [
+                            "dxy.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "fst.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "pi.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,dd5c538efa0f437ef52f414b4885885d"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-09-22T08:22:47.359699706"
+    },
+    "ag1000 - vcf": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "ag1000_test"
+                        },
+                        [
+                            "ag1000_test_dxy.txt:md5,f51ccb79b8a0cd7fa09f2f48ebf34f3f",
+                            "ag1000_test_fst.txt:md5,51835f97847b485dc02fbb5848bf21fc",
+                            "ag1000_test_pi.txt:md5,370ded40ded7d1b2d3c50aebefbd0da7"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,b8070433a36f811fe7bfb6a4ab04cd4c"
+                ],
+                "stats": [
+                    [
+                        {
+                            "id": "ag1000_test"
+                        },
+                        [
+                            "ag1000_test_dxy.txt:md5,f51ccb79b8a0cd7fa09f2f48ebf34f3f",
+                            "ag1000_test_fst.txt:md5,51835f97847b485dc02fbb5848bf21fc",
+                            "ag1000_test_pi.txt:md5,370ded40ded7d1b2d3c50aebefbd0da7"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,b8070433a36f811fe7bfb6a4ab04cd4c"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-09-22T09:16:22.397338312"
+    }
+}
