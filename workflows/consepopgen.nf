@@ -4,6 +4,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
+include { PIXY                   } from '../modules/local/pixy/main'
 include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -23,6 +24,49 @@ workflow CONSEPOPGEN {
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
+
+    //
+    // Prepare VCF channel for PIXY
+    //
+    ch_samplesheet
+        .map { _meta, vcf, vcf_index -> 
+            return [
+                [id: vcf.baseName, vcf_file: vcf.name], 
+                vcf, 
+                vcf_index
+            ]
+        }
+        .set { ch_vcf_for_pixy }
+
+    //
+    // Create populations file from samplesheet
+    //
+    ch_samplesheet
+        .collectFile(
+            name: "populations.txt",
+            storeDir: "${params.outdir}/pixy"
+        ) { meta, _vcf, _vcf_index ->
+            // Flatten the populations map to create individual-population pairs
+            def lines = ""
+            meta.populations.each { population, individuals ->
+                individuals.each { individual ->
+                    lines += "${individual.id}\t${population}\n"
+                }
+            }
+            return lines
+        }
+        .set { ch_populations_file }
+
+    //
+    // Run PIXY analysis
+    //
+    PIXY (
+        ch_vcf_for_pixy,
+        ch_populations_file,
+        []  // bed_file optional
+    )
+
+    ch_versions = ch_versions.mix(PIXY.out.versions)
 
     //
     // Collate and save software versions

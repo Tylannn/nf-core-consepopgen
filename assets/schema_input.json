@@ -7,27 +7,24 @@
     "items": {
         "type": "object",
         "properties": {
-            "sample": {
+            "Individual": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "errorMessage": "Individual name must be provided and cannot contain spaces",
                 "meta": ["id"]
             },
-            "fastq_1": {
+            "Population": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+$",
+                "errorMessage": "Population name must be provided and cannot contain spaces"
             },
-            "fastq_2": {
+            "VCF": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "format": "string",
+                "pattern": "^\\S+\\.vcf(\\.gz)?$",
+                "errorMessage": "VCF file must be provided, cannot contain spaces and must have extension '.vcf' or '.vcf.gz'"
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["Individual", "Population", "VCF"]
     }
 }
