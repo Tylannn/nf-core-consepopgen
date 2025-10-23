@@ -21,9 +21,9 @@ process PIXY {
 
     // TODO nf-core: See section in main README for further information regarding finding and adding container addresses to the section below.
     conda "${moduleDir}/environment.yml"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'community.wave.seqera.io/library/htslib_pixy:aad49e1012bf9d94':
-        'community.wave.seqera.io/library/htslib_pixy:aad49e1012bf9d94' }"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
+        ? 'oras://community.wave.seqera.io/library/htslib_pixy:54543b385050f8cd'
+        : 'community.wave.seqera.io/library/htslib_pixy:25b99ae8520fa852'}"
 
     input:
     tuple val(meta), path(vcf), path(vcf_index)
@@ -32,7 +32,7 @@ process PIXY {
 
     output:
     tuple val(meta), path("*.txt"), emit: stats
-    path "versions.yml"          , emit: versions
+    path "versions.yml", emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -43,6 +43,11 @@ process PIXY {
     def populations = populations_file ? "--populations $populations_file" : ""
     def bed = bed_file ? "--bed_file $bed_file" : "--window_size 10000"
     """
+    # Workaround for pixy issue with symlinked VCF files:
+    # When index timestamp is older than VCF, pixy fail to read the file
+    # Synchronizing timestamps prevents this issue
+    touch ${vcf_index}
+
     pixy \\
         --stats pi fst dxy \\
         --vcf $vcf \\
