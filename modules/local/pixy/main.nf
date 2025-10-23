@@ -60,7 +60,7 @@ process PIXY {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        pixy: \$(pixy --version 2>&1 | head -n1 | sed 's/pixy version //')
+        pixy: \$(pixy --version 2>&1 | tail -1 | sed 's/version //')
     END_VERSIONS
     """
 
@@ -72,7 +72,7 @@ process PIXY {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        pixy: \$(echo "1.2.7.beta12")
+        pixy: \$(echo "2.0.0.beta13")
     END_VERSIONS
     """
 }
