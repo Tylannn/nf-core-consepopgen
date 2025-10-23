@@ -1,0 +1,44 @@
+{
+    "-profile test": {
+        "content": [
+            2,
+            {
+                "PIXY": {
+                    "pixy": "\u2588\u2580\u2580\u2588 \u2591\u2580\u2591 \u2588\u2591\u2588 \u2588\u2591\u2591\u2588"
+                },
+                "Workflow": {
+                    "nf-core/consepopgen": "v1.0.0dev"
+                }
+            },
+            [
+                "multiqc",
+                "multiqc/multiqc_data",
+                "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc_citations.txt",
+                "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_software_versions.txt",
+                "multiqc/multiqc_data/multiqc_sources.txt",
+                "multiqc/multiqc_report.html",
+                "pipeline_info",
+                "pipeline_info/nf_core_consepopgen_software_mqc_versions.yml",
+                "pixy",
+                "pixy/ag1000_pixy_test.vcf_dxy.txt",
+                "pixy/ag1000_pixy_test.vcf_fst.txt",
+                "pixy/ag1000_pixy_test.vcf_pi.txt",
+                "pixy/populations.txt"
+            ],
+            [
+                "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
+                "ag1000_pixy_test.vcf_dxy.txt:md5,f51ccb79b8a0cd7fa09f2f48ebf34f3f",
+                "ag1000_pixy_test.vcf_fst.txt:md5,51835f97847b485dc02fbb5848bf21fc",
+                "ag1000_pixy_test.vcf_pi.txt:md5,370ded40ded7d1b2d3c50aebefbd0da7",
+                "populations.txt:md5,bedb0a0112e9101c58522970d8e9bc0a"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-10-23T07:54:33.53720119"
+    }
+}
