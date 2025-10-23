@@ -20,52 +20,79 @@
 
 ## Introduction
 
-**nf-core/consepopgen** is a bioinformatics pipeline that ...
+**nf-core/consepopgen** is a bioinformatics pipeline for conservation and population genetics analysis. The pipeline provides a standardized and reproducible workflow for analyzing genomic variation data from conservation studies. It accepts multi-sample VCF files (including invariant sites) with population assignments and calculates population genetic diversity and differentiation metrics.
 
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
+The pipeline is specifically designed for:
 
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/guidelines/graphic_design/workflow_diagrams#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+- **Conservation genetics**: Assessing genetic diversity in endangered or threatened species
+- **Population genomics**: Understanding population structure and differentiation
+- **Wildlife management**: Providing genetic data to inform conservation decisions
+
+### Current Features (v0.1.0-dev)
+
+The pipeline currently implements core population genetic statistics using [PIXY](https://pixy.readthedocs.io/):
+
+1. **π (Pi) - Nucleotide Diversity**
+   - Measures within-population genetic variation
+   - Accounts for invariant sites for accurate estimates
+2. **FST - Population Differentiation**
+   - Quantifies genetic divergence between populations
+   - Uses Weir & Cockerham's estimator
+3. **Dxy - Absolute Divergence**
+   - Measures genetic distance between populations
+   - Independent of within-population diversity
+4. **Workflow Reporting**: MultiQC report for pipeline execution summary and software versions
+5. **Reproducibility**: Containerized workflow with Docker/Singularity/Apptainer support
+
+### Planned Features
+
+According to the [project proposal](https://github.com/nf-core/proposals/issues/57), future releases will include:
+
+- **Inbreeding metrics**: Fis and ROH (Runs of Homozygosity) analysis
+- **Population structure**: PCA and ADMIXTURE visualization
+- **Additional diversity metrics**: Tajima's D and other summary statistics
 
 ## Usage
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
-<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
-     Explain what rows and columns represent. For instance (please edit as appropriate):
-
 First, prepare a samplesheet with your input data that looks as follows:
 
 `samplesheet.csv`:
 
 ```csv
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
+Individual,Population,VCF
+Sample1_Ind1,PopulationA,/path/to/your/data.vcf.gz
+Sample1_Ind2,PopulationA,/path/to/your/data.vcf.gz
+Sample1_Ind3,PopulationB,/path/to/your/data.vcf.gz
+Sample1_Ind4,PopulationB,/path/to/your/data.vcf.gz
 ```
 
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
+Each row represents an individual sample with its population assignment:
 
--->
+- `Individual`: Unique individual identifier (must match sample names in VCF)
+- `Population`: Population or group identifier for this individual
+- `VCF`: Path to the multi-sample VCF file (.vcf.gz format, index file .vcf.gz.tbi must exist in the same directory)
+
+> [!IMPORTANT]
+> The VCF file should be a **multi-sample VCF** containing genotype information for all individuals listed in the samplesheet. Multiple individuals from different populations can reference the same VCF file, and the pipeline will automatically group them accordingly.
 
 Now, you can run the pipeline using:
 
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
-
 ```bash
 nextflow run nf-core/consepopgen \
-   -profile <docker/singularity/.../institute> \
+   -profile <docker/singularity/apptainer/.../institute> \
    --input samplesheet.csv \
    --outdir <OUTDIR>
 ```
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).
+
+### Known Issues
+
+- **PIXY timestamp bug**: A workaround has been implemented for a known issue with PIXY when reading symlinked VCF files (see [pixy#176](https://github.com/ksamuk/pixy/issues/176)). The pipeline automatically handles this by synchronizing file timestamps.
 
 For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/consepopgen/usage) and the [parameter documentation](https://nf-co.re/consepopgen/parameters).
 
