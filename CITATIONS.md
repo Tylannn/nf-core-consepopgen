@@ -10,9 +10,17 @@
 
 ## Pipeline tools
 
+- [pixy](https://doi.org/10.1111/1755-0998.13326)
+
+  > Korunes, K.L. and Samuk, K. (2021), pixy: Unbiased estimation of nucleotide diversity and divergence in the presence of missing data. Molecular Ecology Resources, 21: 1359-1368. doi: 10.1111/1755-0998.13326.
+
+  > Bailey, N., Stevison, L., & Samuk, K. (2025). Correcting for bias in estimates of θw and Tajima's D from missing data in next-generation sequencing. Molecular Ecology Resources, e14104. doi: 10.1111/1755-0998.14104.
+
+  > Samuk, K., Korunes, K., Valentine, C., McAuley, E., Stone, M., Trevisani, M.D., & Moshiri, N. (2025). ksamuk/pixy: pixy 2.0.0.beta13 (Version 2.0.0.beta13). Zenodo. doi: 10.5281/zenodo.17400195.
+
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
 
-> Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
+  > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
 
 ## Software packaging/containerisation tools
 
