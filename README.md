@@ -30,25 +30,31 @@ The pipeline is specifically designed for:
 
 ### Current Features (v0.1.0-dev)
 
-The pipeline currently implements core population genetic statistics using [PIXY](https://pixy.readthedocs.io/):
+The pipeline currently implements the following analyses:
 
-1. **π (Pi) - Nucleotide Diversity**
-   - Measures within-population genetic variation
-   - Accounts for invariant sites for accurate estimates
-2. **FST - Population Differentiation**
-   - Quantifies genetic divergence between populations
-   - Uses Weir & Cockerham's estimator
-3. **Dxy - Absolute Divergence**
-   - Measures genetic distance between populations
-   - Independent of within-population diversity
+1. **Population VCF Splitting**
+   - Automatically splits VCF files by population for population-specific analyses
+   - Uses [bcftools view](http://samtools.github.io/bcftools/)
+
+2. **Population Genetic Statistics** using [PIXY](https://pixy.readthedocs.io/):
+   - **π (Pi) - Nucleotide Diversity**: Measures within-population genetic variation
+   - **FST - Population Differentiation**: Quantifies genetic divergence between populations
+   - **Dxy - Absolute Divergence**: Measures genetic distance between populations
+   - Properly accounts for invariant sites for accurate estimates
+
+3. **Individual Inbreeding Metrics** using [VCFtools](https://vcftools.github.io/):
+   - **Heterozygosity and Fis**: Individual-level inbreeding coefficients
+   - Calculated separately for each population
+
 4. **Workflow Reporting**: MultiQC report for pipeline execution summary and software versions
+
 5. **Reproducibility**: Containerized workflow with Docker/Singularity/Apptainer support
 
 ### Planned Features
 
 According to the [project proposal](https://github.com/nf-core/proposals/issues/57), future releases will include:
 
-- **Inbreeding metrics**: Fis and ROH (Runs of Homozygosity) analysis
+- **Runs of Homozygosity (ROH)**: Detection of long stretches of homozygosity
 - **Population structure**: PCA and ADMIXTURE visualization
 - **Additional diversity metrics**: Tajima's D and other summary statistics
 

@@ -13,9 +13,30 @@ The directories listed below will be created in the results directory after the 
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
+- [Population VCF Splitting](#population-vcf-splitting) - Split VCF files by population
 - [PIXY](#pixy) - Population genetic statistics (π, FST, Dxy)
+- [VCFtools](#vcftools) - Individual heterozygosity and inbreeding coefficient (Fis)
 - [MultiQC](#multiqc) - Workflow execution report with software versions
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
+
+### Population VCF Splitting
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `populations/`
+  - `*.vcf.gz`: VCF files split by population (one file per population)
+  - `samples/`: Directory containing sample list files for each population
+
+</details>
+
+The pipeline automatically splits input VCF files by population using [bcftools view](http://samtools.github.io/bcftools/bcftools.html). This enables population-specific analyses such as individual heterozygosity calculations.
+
+**Output files:**
+- Each population gets its own compressed VCF file: `<vcf_name>_<population>.vcf.gz`
+- Sample lists are stored in `samples/` for reproducibility
+
+These population-specific VCF files are used downstream for calculating individual-level statistics.
 
 ### PIXY
 
@@ -122,6 +143,31 @@ Wolf_001         Yellowstone
 Wolf_002         Yellowstone
 ...
 ```
+
+### VCFtools
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `vcftools/`
+  - `*_<population>.het`: Individual heterozygosity statistics for each population
+
+</details>
+
+[VCFtools](https://vcftools.github.io/) is used to calculate individual-level heterozygosity statistics within each population. The pipeline runs VCFtools with the `--het` flag on population-specific VCF files, generating separate output files for each population.
+
+#### Individual Heterozygosity
+
+**File**: `*_<population>.het`
+
+**Columns:**
+- `INDV`: Individual sample ID
+- `O(HOM)`: Observed number of homozygous sites
+- `E(HOM)`: Expected number of homozygous sites under Hardy-Weinberg equilibrium
+- `N_SITES`: Total number of sites analyzed
+- `F`: Inbreeding coefficient (Fis)
+
+For detailed information about the statistics and their interpretation, please refer to the [VCFtools documentation](https://vcftools.github.io/man_latest.html#OUTPUT%20OPTIONS).
 
 ### MultiQC
 

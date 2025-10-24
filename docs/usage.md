@@ -20,7 +20,9 @@ The pipeline is designed to calculate essential population genetic statistics fr
 
 ### Current Features (v0.1.0-dev)
 
+- **Population VCF Splitting**: Automatically split VCF files by population for population-specific analyses
 - **Population Genetic Statistics**: Calculate π (nucleotide diversity), FST (population differentiation), and Dxy (absolute divergence) using [PIXY](https://pixy.readthedocs.io/)
+- **Individual Inbreeding Coefficient**: Calculate heterozygosity and Fis for each individual within populations using [VCFtools](https://vcftools.github.io/)
 - **Accurate Estimates**: Properly accounts for invariant sites, crucial for modern genomic datasets
 - **Flexible Input**: Support for multi-sample VCF files with population assignments
 - **Workflow Reporting**: MultiQC report for pipeline execution summary and software versions
@@ -58,10 +60,11 @@ Wolf_006,Mexico,/data/wolves_all.vcf.gz
 
 In this example, all individuals are from the same multi-sample VCF file (`wolves_all.vcf.gz`), but are assigned to three different populations (Yellowstone, Alaska, Mexico). The pipeline will automatically:
 
-1. Extract the relevant individuals for each population
+1. Split the VCF file by population (creating separate VCF files for each population)
 2. Create a populations file for PIXY
 3. Calculate within-population diversity (π) for each population
 4. Calculate between-population statistics (FST, Dxy) for all population pairs
+5. Calculate individual heterozygosity and inbreeding coefficient (Fis) for each individual within their population
 
 ### Column Descriptions
 

@@ -10,6 +10,10 @@
 
 ## Pipeline tools
 
+- [BCFtools](https://pubmed.ncbi.nlm.nih.gov/33590861/)
+
+  > Danecek P, Bonfield JK, et al. Twelve years of SAMtools and BCFtools. Gigascience (2021) 10(2):giab008. doi: 10.1093/gigascience/giab008. PubMed PMID: 33590861; PubMed Central PMCID: PMC7931819.
+
 - [pixy](https://doi.org/10.1111/1755-0998.13326)
 
   > Korunes, K.L. and Samuk, K. (2021), pixy: Unbiased estimation of nucleotide diversity and divergence in the presence of missing data. Molecular Ecology Resources, 21: 1359-1368. doi: 10.1111/1755-0998.13326.
@@ -17,6 +21,10 @@
   > Bailey, N., Stevison, L., & Samuk, K. (2025). Correcting for bias in estimates of θw and Tajima's D from missing data in next-generation sequencing. Molecular Ecology Resources, e14104. doi: 10.1111/1755-0998.14104.
 
   > Samuk, K., Korunes, K., Valentine, C., McAuley, E., Stone, M., Trevisani, M.D., & Moshiri, N. (2025). ksamuk/pixy: pixy 2.0.0.beta13 (Version 2.0.0.beta13). Zenodo. doi: 10.5281/zenodo.17400195.
+
+- [VCFtools](https://pubmed.ncbi.nlm.nih.gov/21653522/)
+
+  > Danecek P, Auton A, Abecasis G, Albers CA, Banks E, DePristo MA, Handsaker RE, Lunter G, Marth GT, Sherry ST, McVean G, Durbin R; 1000 Genomes Project Analysis Group. The variant call format and VCFtools. Bioinformatics. 2011 Aug 1;27(15):2156-8. doi: 10.1093/bioinformatics/btr330. Epub 2011 Jun 7. PubMed PMID: 21653522; PubMed Central PMCID: PMC3137218.
 
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
 
