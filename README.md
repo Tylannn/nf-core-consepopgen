@@ -46,15 +46,19 @@ The pipeline currently implements the following analyses:
    - **Heterozygosity and Fis**: Individual-level inbreeding coefficients
    - Calculated separately for each population
 
-4. **Workflow Reporting**: MultiQC report for pipeline execution summary and software versions
+4. **Runs of Homozygosity (ROH)** using [BCFtools RoH](http://samtools.github.io/bcftools/):
+   - **ROH Detection**: Identifies genomic regions with extended homozygosity
+   - Uses a Hidden Markov Model (HMM) approach for accurate autozygosity detection
+   - Calculated separately for each population
 
-5. **Reproducibility**: Containerized workflow with Docker/Singularity/Apptainer support
+5. **Workflow Reporting**: MultiQC report for pipeline execution summary and software versions
+
+6. **Reproducibility**: Containerized workflow with Docker/Singularity/Apptainer support
 
 ### Planned Features
 
 According to the [project proposal](https://github.com/nf-core/proposals/issues/57), future releases will include:
 
-- **Runs of Homozygosity (ROH)**: Detection of long stretches of homozygosity
 - **Population structure**: PCA and ADMIXTURE visualization
 - **Additional diversity metrics**: Tajima's D and other summary statistics
 

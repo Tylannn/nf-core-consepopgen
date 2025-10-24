@@ -23,6 +23,7 @@ The pipeline is designed to calculate essential population genetic statistics fr
 - **Population VCF Splitting**: Automatically split VCF files by population for population-specific analyses
 - **Population Genetic Statistics**: Calculate π (nucleotide diversity), FST (population differentiation), and Dxy (absolute divergence) using [PIXY](https://pixy.readthedocs.io/)
 - **Individual Inbreeding Coefficient**: Calculate heterozygosity and Fis for each individual within populations using [VCFtools](https://vcftools.github.io/)
+- **Runs of Homozygosity (ROH)**: Detect genomic regions with extended homozygosity using [BCFtools RoH](http://samtools.github.io/bcftools/bcftools.html#roh)
 - **Accurate Estimates**: Properly accounts for invariant sites, crucial for modern genomic datasets
 - **Flexible Input**: Support for multi-sample VCF files with population assignments
 - **Workflow Reporting**: MultiQC report for pipeline execution summary and software versions
@@ -65,6 +66,7 @@ In this example, all individuals are from the same multi-sample VCF file (`wolve
 3. Calculate within-population diversity (π) for each population
 4. Calculate between-population statistics (FST, Dxy) for all population pairs
 5. Calculate individual heterozygosity and inbreeding coefficient (Fis) for each individual within their population
+6. Detect runs of homozygosity (ROH) for each individual within their population
 
 ### Column Descriptions
 

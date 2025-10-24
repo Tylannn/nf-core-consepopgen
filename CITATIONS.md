@@ -14,6 +14,10 @@
 
   > Danecek P, Bonfield JK, et al. Twelve years of SAMtools and BCFtools. Gigascience (2021) 10(2):giab008. doi: 10.1093/gigascience/giab008. PubMed PMID: 33590861; PubMed Central PMCID: PMC7931819.
 
+- [BCFtools/RoH](https://pubmed.ncbi.nlm.nih.gov/26826718/)
+
+  > Narasimhan V, Danecek P, Scally A, Xue Y, Tyler-Smith C, Durbin R. BCFtools/RoH: a hidden Markov model approach for detecting autozygosity from next-generation sequencing data. Bioinformatics. 2016 Jun 1;32(11):1749-51. doi: 10.1093/bioinformatics/btw044. Epub 2016 Jan 30. PubMed PMID: 26826718; PubMed Central PMCID: PMC4892413.
+
 - [pixy](https://doi.org/10.1111/1755-0998.13326)
 
   > Korunes, K.L. and Samuk, K. (2021), pixy: Unbiased estimation of nucleotide diversity and divergence in the presence of missing data. Molecular Ecology Resources, 21: 1359-1368. doi: 10.1111/1755-0998.13326.

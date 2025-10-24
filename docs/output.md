@@ -169,6 +169,44 @@ Wolf_002         Yellowstone
 
 For detailed information about the statistics and their interpretation, please refer to the [VCFtools documentation](https://vcftools.github.io/man_latest.html#OUTPUT%20OPTIONS).
 
+### BCFtools RoH
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `roh/`
+  - `*_<population>.roh`: Runs of homozygosity (ROH) detection results for each population
+
+</details>
+
+[BCFtools RoH](http://samtools.github.io/bcftools/bcftools.html#roh) uses a Hidden Markov Model (HMM) approach to detect runs of homozygosity (ROH) from next-generation sequencing data. The pipeline runs BCFtools RoH on population-specific VCF files, generating separate output files for each population.
+
+#### Runs of Homozygosity Output
+
+**File**: `*_<population>.roh`
+
+The output file contains two types of lines:
+
+**RG (Region) lines**: Summary statistics for each detected ROH region
+- `RG`: Line type identifier
+- Sample ID: Individual sample identifier
+- Chromosome: Chromosome/scaffold name
+- Start position: First position of the ROH
+- End position: Last position of the ROH
+- Length (bp): Physical length of the ROH in base pairs
+- Number of markers: Count of SNPs/sites within the ROH
+- Quality score: Confidence score for the ROH call
+
+**ST (State) lines**: Per-site state calls showing genotype quality across the genome
+- `ST`: Line type identifier
+- Sample ID: Individual sample identifier  
+- Chromosome: Chromosome/scaffold name
+- Position: Genomic position
+- State: HMM state (0=heterozygous, 1=homozygous)
+- Quality: Phred-scaled quality score
+
+For detailed information about the algorithm, output format, and advanced options, please refer to the [BCFtools RoH documentation](http://samtools.github.io/bcftools/bcftools.html#roh).
+
 ### MultiQC
 
 <details markdown="1">
