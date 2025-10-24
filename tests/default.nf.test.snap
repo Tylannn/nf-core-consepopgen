@@ -1,10 +1,19 @@
 {
     "-profile test": {
         "content": [
-            2,
+            8,
             {
+                "BCFTOOLS_ROH": {
+                    "bcftools": 1.22
+                },
+                "BCFTOOLS_SPLIT": {
+                    "bcftools": 1.22
+                },
                 "PIXY": {
                     "pixy": "2.0.0.beta13"
+                },
+                "VCFTOOLS_HET": {
+                    "vcftools": "0.1.16"
                 },
                 "Workflow": {
                     "nf-core/consepopgen": "v1.0.0dev"
@@ -25,20 +34,40 @@
                 "pixy/ag1000_pixy_test.vcf_dxy.txt",
                 "pixy/ag1000_pixy_test.vcf_fst.txt",
                 "pixy/ag1000_pixy_test.vcf_pi.txt",
-                "pixy/populations.txt"
+                "pixy/populations.txt",
+                "populations",
+                "populations/ag1000_pixy_test.vcf_BFS.vcf.gz",
+                "populations/ag1000_pixy_test.vcf_BFS.vcf.gz.tbi",
+                "populations/ag1000_pixy_test.vcf_KES.vcf.gz",
+                "populations/ag1000_pixy_test.vcf_KES.vcf.gz.tbi",
+                "populations/samples",
+                "populations/samples/ag1000_pixy_test.vcf_BFS_samples.txt",
+                "populations/samples/ag1000_pixy_test.vcf_KES_samples.txt",
+                "roh",
+                "roh/ag1000_pixy_test.vcf_BFS.roh",
+                "roh/ag1000_pixy_test.vcf_KES.roh",
+                "vcftools",
+                "vcftools/ag1000_pixy_test.vcf_BFS.het",
+                "vcftools/ag1000_pixy_test.vcf_KES.het"
             ],
             [
                 "multiqc_citations.txt:md5,4c806e63a283ec1b7e78cdae3a923d4f",
                 "ag1000_pixy_test.vcf_dxy.txt:md5,f51ccb79b8a0cd7fa09f2f48ebf34f3f",
                 "ag1000_pixy_test.vcf_fst.txt:md5,51835f97847b485dc02fbb5848bf21fc",
                 "ag1000_pixy_test.vcf_pi.txt:md5,370ded40ded7d1b2d3c50aebefbd0da7",
-                "populations.txt:md5,bedb0a0112e9101c58522970d8e9bc0a"
+                "populations.txt:md5,bedb0a0112e9101c58522970d8e9bc0a",
+                "ag1000_pixy_test.vcf_BFS_samples.txt:md5,be82ed4d6183d8e43f6ad026b42e4082",
+                "ag1000_pixy_test.vcf_KES_samples.txt:md5,48538b99c5a4eb7810f9c03ab701efc5",
+                "ag1000_pixy_test.vcf_BFS.roh:md5,e44329d407733d5708c3535b6736909e",
+                "ag1000_pixy_test.vcf_KES.roh:md5,c8417f3e65c51df20b6bc1bccbb75607",
+                "ag1000_pixy_test.vcf_BFS.het:md5,9dc5dc042a5f0bb09d1448d916f190e6",
+                "ag1000_pixy_test.vcf_KES.het:md5,6ec70f432695f3e618f0f47d2a74b0cd"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.2"
         },
-        "timestamp": "2025-10-23T09:04:37.82434503"
+        "timestamp": "2025-10-24T07:33:09.787860744"
     }
 }

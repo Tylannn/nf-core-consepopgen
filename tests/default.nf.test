@@ -3,6 +3,7 @@ nextflow_pipeline {
     name "Test pipeline"
     script "../main.nf"
     tag "pipeline"
+    tag "pipeline_consepopgen"
 
     test("-profile test") {
 
@@ -18,13 +19,44 @@ nextflow_pipeline {
             // stable_path: All files in ${params.outdir}/ with stable content
             def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
             assertAll(
-                { assert workflow.success},
+                { assert workflow.success },
+                { assert workflow.trace.succeeded().size() > 0 },
+                
+                // Check main output directories exist
+                { assert new File("$outputDir/populations").exists() },
+                { assert new File("$outputDir/vcftools").exists() },
+                { assert new File("$outputDir/roh").exists() },
+                { assert new File("$outputDir/pixy").exists() },
+                { assert new File("$outputDir/multiqc").exists() },
+                
+                // Check population splitting outputs (VCF files and indices)
+                { assert new File("$outputDir/populations").listFiles().findAll { it.name.endsWith('.vcf.gz') }.size() >= 2 },
+                { assert new File("$outputDir/populations").listFiles().findAll { it.name.endsWith('.vcf.gz.tbi') }.size() >= 2 },
+                { assert new File("$outputDir/populations/samples").isDirectory() },
+                { assert new File("$outputDir/populations/samples").listFiles().findAll { it.name.endsWith('_samples.txt') }.size() >= 2 },
+                
+                // Check VCFtools outputs (heterozygosity files)
+                { assert new File("$outputDir/vcftools").listFiles().findAll { it.name.endsWith('.het') }.size() >= 2 },
+                
+                // Check BCFtools ROH outputs
+                { assert new File("$outputDir/roh").listFiles().findAll { it.name.endsWith('.roh') }.size() >= 2 },
+                
+                // Check PIXY outputs
+                { assert new File("$outputDir/pixy").listFiles().find { it.name.endsWith('_pi.txt') } != null },
+                { assert new File("$outputDir/pixy").listFiles().find { it.name.endsWith('_fst.txt') } != null },
+                { assert new File("$outputDir/pixy").listFiles().find { it.name.endsWith('_dxy.txt') } != null },
+                { assert new File("$outputDir/pixy/populations.txt").exists() },
+                
+                // Check MultiQC outputs
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+                
+                // Snapshot test for reproducibility
                 { assert snapshot(
                     // Number of successful tasks
                     workflow.trace.succeeded().size(),
-                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed
                     removeNextflowVersion("$outputDir/pipeline_info/nf_core_consepopgen_software_mqc_versions.yml"),
-                    // All stable path name, with a relative path
+                    // All stable path names, with relative paths
                     stable_name,
                     // All files with stable contents
                     stable_path
