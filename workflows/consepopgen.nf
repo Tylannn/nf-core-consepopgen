@@ -6,6 +6,7 @@
 include { MULTIQC                           } from '../modules/nf-core/multiqc/main'
 include { PIXY                              } from '../modules/local/pixy/main'
 include { BCFTOOLS_VIEW as BCFTOOLS_SPLIT   } from '../modules/nf-core/bcftools/view/main'
+include { BCFTOOLS_ROH                      } from '../modules/nf-core/bcftools/roh/main'
 include { VCFTOOLS as VCFTOOLS_HET          } from '../modules/nf-core/vcftools/main'
 include { paramsSummaryMap                  } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc              } from '../subworkflows/nf-core/utils_nfcore_pipeline'
@@ -93,6 +94,27 @@ workflow CONSEPOPGEN {
     )
 
     ch_versions = ch_versions.mix(BCFTOOLS_SPLIT.out.versions.first())
+
+    //
+    // Combine VCF and index files for downstream analysis
+    //
+    BCFTOOLS_SPLIT.out.vcf
+        .join(BCFTOOLS_SPLIT.out.tbi, failOnMismatch: true, failOnDuplicate: true)
+        .set { ch_population_vcf }
+
+    //
+    // Run BCFTOOLS_ROH to detect runs of homozygosity for each population
+    //
+    BCFTOOLS_ROH (
+        ch_population_vcf,
+        [[], []],  // af_file and af_file_tbi (not used)
+        [],        // genetic_map
+        [],        // regions_file
+        [],        // samples_file
+        []         // targets_file
+    )
+
+    ch_versions = ch_versions.mix(BCFTOOLS_ROH.out.versions.first())
 
     //
     // Create populations file from samplesheet
