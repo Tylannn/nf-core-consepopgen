@@ -38,10 +38,12 @@ process PIXY {
     task.ext.when == null || task.ext.when
 
     script:
-    def args = task.ext.args ?: ''
+    def args = task.ext.args ?: ""
     def prefix = task.ext.prefix ?: "${meta.id}"
+    def stats = args.contains("--stats")? "" : "--stats pi fst dxy"
     def populations = populations_file ? "--populations $populations_file" : ""
-    def bed = bed_file ? "--bed_file $bed_file" : "--window_size 10000"
+    def bed = bed_file ? "--bed_file $bed_file" :
+        args.contains("--window_size") ? "" : "--window_size 10000"
     """
     # Workaround for pixy issue with symlinked VCF files:
     # When index timestamp is older than VCF, pixy fail to read the file
@@ -49,14 +51,14 @@ process PIXY {
     touch ${vcf_index}
 
     pixy \\
-        --stats pi fst dxy \\
+        ${stats} \\
         --vcf $vcf \\
-        $populations \\
-        $bed \\
-        --n_cores $task.cpus \\
+        ${populations} \\
+        ${bed} \\
+        --n_cores ${task.cpus} \\
         --output_folder . \\
-        --output_prefix $prefix \\
-        $args
+        --output_prefix ${prefix} \\
+        ${args}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
